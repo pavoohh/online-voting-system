@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online E-Voting System - Wireframe</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    /* Splash Screen */
+    .splash-screen {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 2rem;
+    }
+
+    .splash-image {
+      width: 100%;
+      max-width: 500px;
+      height: 300px;
+      background: white;
+      border: 3px solid #2563eb;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .splash-image-placeholder {
+      font-size: 4rem;
+      color: #2563eb;
+    }
+
+    .splash-text {
+      text-align: center;
+      color: white;
+      margin-bottom: 2rem;
+    }
+
+    .splash-text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .splash-text p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .splash-continue {
+      background: white;
+      color: #2563eb;
+      border: none;
+      padding: 1rem 3rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .splash-continue:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Welcome Page */
+    .screen {
+      display: none;
+      width: 100%;
+      min-height: 100%;
+      background: white;
+      padding: 2rem;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .header-box {
+      background: #2563eb;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      border: 3px solid #1e40af;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+
+    .header-box h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-section {
+      background: #eff6ff;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .team-section h2 {
+      color: #2563eb;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .team-member {
+      background: white;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      background: #dbeafe;
+      border: 2px solid #2563eb;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #2563eb;
+    }
+
+    .team-member h3 {
+      color: #1e40af;
+      font-size: 1.1rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 150px;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+      border: 2px solid #1e40af;
+    }
+
+    .btn-primary:hover {
+      background: #1e40af;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #2563eb;
+      border: 2px solid #2563eb;
+    }
+
+    .btn-secondary:hover {
+      background: #eff6ff;
+    }
+
+    /* Login/Register Page */
+    .auth-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .logo-box {
+      width: 100px;
+      height: 100px;
+      background: #eff6ff;
+      border: 3px solid #2563eb;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #2563eb;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-header h2 {
+      color: #2563eb;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-header p {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .form-box {
+      background: #eff6ff;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      color: #1e40af;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #2563eb;
+      border-radius: 6px;
+      font-size: 1rem;
+      background: white;
+      color: #475569;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #1e40af;
+    }
+
+    .security-note {
+      background: #dbeafe;
+      border: 2px solid #2563eb;
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .security-note p {
+      color: #1e40af;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .link-text {
+      text-align: center;
+      margin-top: 1rem;
+      color: #64748b;
+    }
+
+    .link-text a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .link-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* Verification Page */
+    .verification-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .verification-card {
+      background: #eff6ff;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #2563eb;
+    }
+
+    .card-header-icon {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border: 2px solid #2563eb;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .card-header h3 {
+      color: #2563eb;
+      font-size: 1.5rem;
+    }
+
+    .verification-step {
+      background: white;
+      border: 2px solid #93c5fd;
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .verification-step h4 {
+      color: #1e40af;
+      margin-bottom: 0.5rem;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .status-verified {
+      background: #dcfce7;
+      color: #166534;
+      border: 2px solid #22c55e;
+    }
+
+    .status-pending {
+      background: #fef3c7;
+      color: #92400e;
+      border: 2px solid #f59e0b;
+    }
+
+    .status-message {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .eligible {
+      background: #dcfce7;
+      color: #166534;
+      border: 2px solid #22c55e;
+    }
+
+    .not-eligible {
+      background: #fecaca;
+      color: #991b1b;
+      border: 2px solid #ef4444;
+    }
+
+    /* Dashboard */
+    .dashboard-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      background: #2563eb;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dashboard-header h2 {
+      font-size: 1.8rem;
+    }
+
+    .badge {
+      background: white;
+      color: #2563eb;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .welcome-card {
+      background: #eff6ff;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .welcome-card h3 {
+      color: #2563eb;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-card p {
+      color: #64748b;
+    }
+
+    .election-details {
+      background: white;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .election-details h3 {
+      color: #2563eb;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    .election-info {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-row {
+      display: flex;
+      padding: 0.75rem;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: #1e40af;
+      min-width: 150px;
+    }
+
+    .info-value {
+      color: #475569;
+    }
+
+    .candidates-section {
+      margin-top: 2rem;
+    }
+
+    .candidates-section h4 {
+      color: #2563eb;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .candidate-card {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .candidate-card:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .candidate-card.selected {
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+
+    .party-symbol {
+      width: 80px;
+      height: 80px;
+      background: white;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .candidate-info {
+      flex: 1;
+    }
+
+    .candidate-info h5 {
+      color: #1e40af;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .candidate-info p {
+      color: #64748b;
+    }
+
+    .radio-button {
+      width: 30px;
+      height: 30px;
+      border: 3px solid #2563eb;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .radio-button.selected::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: #2563eb;
+      border-radius: 50%;
+    }
+
+    .warning-box {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .warning-icon {
+      font-size: 1.5rem;
+      color: #f59e0b;
+    }
+
+    .warning-box p {
+      color: #92400e;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-confirm {
+      background: #22c55e;
+      color: white;
+      border: 2px solid #16a34a;
+    }
+
+    .btn-confirm:hover {
+      background: #16a34a;
+    }
+
+    .btn-confirm:disabled {
+      background: #cbd5e1;
+      border-color: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    .btn-change {
+      background: #f59e0b;
+      color: white;
+      border: 2px solid #d97706;
+    }
+
+    .btn-change:hover {
+      background: #d97706;
+    }
+
+    .btn-logout {
+      background: #ef4444;
+      color: white;
+      border: 2px solid #dc2626;
+    }
+
+    .btn-logout:hover {
+      background: #dc2626;
+    }
+
+    .security-message {
+      background: #dbeafe;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .security-message p {
+      color: #1e40af;
+      margin: 0;
+    }
+
+    /* Success Page */
+    .success-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 120px;
+      height: 120px;
+      background: #dcfce7;
+      border: 3px solid #22c55e;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: #22c55e;
+    }
+
+    .success-message {
+      background: #dcfce7;
+      border: 2px solid #22c55e;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .success-message h2 {
+      color: #166534;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .success-message p {
+      color: #166534;
+      font-size: 1.1rem;
+    }
+
+    .vote-details {
+      background: white;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .vote-details h3 {
+      color: #2563eb;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      font-weight: bold;
+      color: #1e40af;
+    }
+
+    .detail-value {
+      color: #475569;
+    }
+
+    .voted-candidate {
+      background: #eff6ff;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .alert-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .alert-overlay.active {
+      display: flex;
+    }
+
+    .alert-box {
+      background: white;
+      border: 3px solid #ef4444;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .alert-box h3 {
+      color: #ef4444;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .alert-box p {
+      color: #475569;
+      margin-bottom: 1.5rem;
+    }
+
+    .alert-box button {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .alert-box button:hover {
+      background: #dc2626;
+    }
+
+    @media (max-width: 768px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .dashboard-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .candidate-card {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="app-container"><!-- Splash Screen -->
+   <div class="splash-screen" id="splashScreen">
+    <div class="splash-image">
+     <div class="splash-image-placeholder">
+      🗳️
+     </div>
+    </div>
+    <div class="splash-text">
+     <h1>Online E-Voting System</h1>
+     <p>Secure • Democratic • Transparent</p>
+    </div><button class="splash-continue" onclick="showScreen('welcomeScreen')">Continue to System</button>
+   </div><!-- Welcome Screen -->
+   <div class="screen" id="welcomeScreen">
+    <div class="header-box">
+     <h1 id="projectName">Online E-Voting System</h1>
+     <p>Academic Wireframe Prototype</p>
+    </div>
+    <div class="team-section">
+     <h2>Project Team Members</h2>
+     <div class="team-grid">
+      <div class="team-member">
+       <div class="team-avatar">
+        👩
+       </div>
+       <h3 id="teamMember1">Thanushree</h3>
+      </div>
+      <div class="team-member">
+       <div class="team-avatar">
+        👩
+       </div>
+       <h3 id="teamMember2">Pavana</h3>
+      </div>
+      <div class="team-member">
+       <div class="team-avatar">
+        👩
+       </div>
+       <h3 id="teamMember3">Upanvitha</h3>
+      </div>
+      <div class="team-member">
+       <div class="team-avatar">
+        👩
+       </div>
+       <h3 id="teamMember4">Sneha</h3>
+      </div>
+     </div>
+     <div class="button-group"><button class="btn btn-primary" onclick="showScreen('loginScreen')">Login</button> <button class="btn btn-secondary" onclick="showScreen('registerScreen')">Register</button>
+     </div>
+    </div>
+   </div><!-- Login Screen -->
+   <div class="screen" id="loginScreen">
+    <div class="auth-container">
+     <div class="logo-box">
+      🏛️
+     </div>
+     <div class="auth-header">
+      <h2>Login - Secure Voting Portal</h2>
+      <p>Secure Online Voting System<br>
+       Login required (No public access)</p>
+     </div>
+     <form class="form-box" id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group"><label for="loginAadhaar">Aadhaar Number</label> <input type="text" id="loginAadhaar" class="form-input" placeholder="Enter Aadhaar Number">
+      </div>
+      <div class="form-group"><label for="loginPassword">Password / PIN</label> <input type="password" id="loginPassword" class="form-input" placeholder="Enter Password / PIN">
+      </div>
+      <div class="form-group"><label for="loginOTP">OTP (Mobile / Email)</label> <input type="text" id="loginOTP" class="form-input" placeholder="Enter OTP">
+      </div>
+      <div class="form-group"><label>Biometric Login (Optional)</label> <button type="button" class="btn btn-secondary" style="width: 100%"> 👆 Scan Fingerprint </button>
+      </div><button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem"> Login </button>
+     </form>
+     <div class="security-note">
+      <p>🔒 End-to-end encrypted</p>
+     </div>
+     <div class="link-text">
+      <p>New User? <a onclick="showScreen('registerScreen')">Register</a></p>
+     </div>
+    </div>
+   </div><!-- Registration Screen -->
+   <div class="screen" id="registerScreen">
+    <div class="auth-container">
+     <div class="logo-box">
+      📝
+     </div>
+     <div class="auth-header">
+      <h2>Registration</h2>
+      <p>Please enter your details to continue</p>
+     </div>
+     <form class="form-box" id="registerForm" onsubmit="handleRegister(event)">
+      <h3 style="color: #2563eb; margin-bottom: 1rem">Personal Details</h3>
+      <div class="form-group"><label for="regFullName">Full Name</label> <input type="text" id="regFullName" class="form-input" placeholder="Enter Full Name">
+      </div>
+      <div class="form-group"><label for="regAadhaar">Aadhaar Number</label> <input type="text" id="regAadhaar" class="form-input" placeholder="Enter Aadhaar Number">
+      </div>
+      <div class="form-group"><label for="regVoterID">Voter ID</label> <input type="text" id="regVoterID" class="form-input" placeholder="Enter Voter ID">
+      </div>
+      <h3 style="color: #2563eb; margin: 1.5rem 0 1rem">Contact Details</h3>
+      <div class="form-group"><label for="regMobile">Mobile Number</label> <input type="tel" id="regMobile" class="form-input" placeholder="Enter Mobile Number">
+      </div>
+      <div class="form-group"><label for="regEmail">Email ID</label> <input type="email" id="regEmail" class="form-input" placeholder="Enter Email ID">
+      </div>
+      <h3 style="color: #2563eb; margin: 1.5rem 0 1rem">Verification</h3>
+      <div class="form-group"><label for="regOTP">OTP Verification</label> <input type="text" id="regOTP" class="form-input" placeholder="Enter OTP">
+      </div><button type="button" class="btn btn-secondary" style="width: 100%; margin-bottom: 1rem"> Send OTP </button> <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem"> Submit </button>
+     </form>
+     <div class="security-note">
+      <p>🔒 All details are securely verified with government records</p>
+     </div>
+     <div class="link-text">
+      <p><a onclick="showScreen('loginScreen')">Back to Login</a></p>
+     </div>
+    </div>
+   </div><!-- Verification Screen -->
+   <div class="screen" id="verificationScreen">
+    <div class="verification-container">
+     <div class="verification-card">
+      <div class="card-header">
+       <div class="card-header-icon">
+        ✓
+       </div>
+       <h3>Identity Check</h3>
+      </div>
+      <div class="verification-step">
+       <h4>1. OTP Verification</h4><span class="status-badge status-verified">✓ OTP Verified</span>
+      </div>
+      <div class="verification-step">
+       <h4>2. Biometric Verification (Optional)</h4><span class="status-badge status-pending">⏳ Pending</span>
+      </div><button class="btn btn-primary" style="width: 100%; margin-top: 1rem" onclick="verifyAndContinue()"> Verify &amp; Continue </button>
+      <div class="status-message eligible" id="eligibilityStatus">
+       ✓ Eligible to Vote
+      </div>
+     </div>
+     <div class="security-note">
+      <p>All details are verified with government records</p>
+     </div>
+    </div>
+   </div><!-- Dashboard Screen -->
+   <div class="screen" id="dashboardScreen">
+    <div class="dashboard-container">
+     <div class="dashboard-header">
+      <h2>Online Voting System</h2><span class="badge">🔒 Government Verified</span>
+     </div>
+     <div class="welcome-card">
+      <h3>Welcome, Voter</h3>
+      <p>Your identity has been successfully verified</p>
+     </div>
+     <div class="election-details">
+      <h3>Election Details</h3>
+      <div class="election-info">
+       <div class="info-row"><span class="info-label">Election Name:</span> <span class="info-value">State Assembly Election 2025</span>
+       </div>
+       <div class="info-row"><span class="info-label">Constituency:</span> <span class="info-value">Bangalore South</span>
+       </div>
+       <div class="info-row"><span class="info-label">Voting Period:</span> <span class="info-value">Jan 15, 2025 - Jan 20, 2025</span>
+       </div>
+      </div>
+      <div class="candidates-section">
+       <h4>Candidates List</h4>
+       <div class="candidate-card" onclick="selectCandidate(1)">
+        <div class="party-symbol">
+         🌸
+        </div>
+        <div class="candidate-info">
+         <h5>Rajshekar</h5>
+         <p>Independent Party</p>
+        </div>
+        <div class="radio-button" id="radio1"></div>
+       </div>
+       <div class="candidate-card" onclick="selectCandidate(2)">
+        <div class="party-symbol">
+         🌙
+        </div>
+        <div class="candidate-info">
+         <h5>Priya Sharma</h5>
+         <p>Progressive Alliance</p>
+        </div>
+        <div class="radio-button" id="radio2"></div>
+       </div>
+       <div class="candidate-card" onclick="selectCandidate(3)">
+        <div class="party-symbol">
+         🌟
+        </div>
+        <div class="candidate-info">
+         <h5>Arjun Patel</h5>
+         <p>National Democratic Front</p>
+        </div>
+        <div class="radio-button" id="radio3"></div>
+       </div>
+       <div class="candidate-card" onclick="selectCandidate(4)">
+        <div class="party-symbol">
+         🌿
+        </div>
+        <div class="candidate-info">
+         <h5>Meera Reddy</h5>
+         <p>Green Earth Party</p>
+        </div>
+        <div class="radio-button" id="radio4"></div>
+       </div>
+      </div>
+      <div class="warning-box"><span class="warning-icon">⚠️</span>
+       <p>You can vote only once. Please confirm your selection carefully. Once submitted, your vote cannot be changed.</p>
+      </div>
+      <div class="action-buttons"><button class="btn btn-confirm" id="confirmBtn" disabled onclick="confirmVote()"> Confirm Vote </button> <button class="btn btn-change" id="changeBtn" disabled onclick="changeSelection()"> Change Selection </button> <button class="btn btn-logout" onclick="logout()"> Logout </button>
+      </div>
+      <div class="security-message">
+       <p>🔒 Your vote is encrypted and securely recorded</p>
+      </div>
+     </div>
+    </div>
+   </div><!-- Success Screen -->
+   <div class="screen" id="successScreen">
+    <div class="success-container">
+     <div class="success-icon">
+      ✓
+     </div>
+     <div class="success-message">
+      <h2>Vote Cast Successfully</h2>
+      <p>Thank you for participating in the democratic process</p>
+     </div>
+     <div class="vote-details">
+      <h3>Vote Details</h3>
+      <div class="detail-row"><span class="detail-label">Vote ID:</span> <span class="detail-value" id="voteID">VID-2025-001234</span>
+      </div>
+      <div class="detail-row"><span class="detail-label">Voter ID:</span> <span class="detail-value" id="voterID">ABC1234567</span>
+      </div>
+      <div class="detail-row"><span class="detail-label">Date:</span> <span class="detail-value" id="voteDate">January 15, 2025</span>
+      </div>
+      <div class="detail-row"><span class="detail-label">Time:</span> <span class="detail-value" id="voteTime">10:30 AM</span>
+      </div>
+     </div>
+     <div class="voted-candidate" id="votedCandidateCard">
+      <div class="party-symbol" id="votedSymbol">
+       🌸
+      </div>
+      <div class="candidate-info">
+       <h5 id="votedCandidateName">Rajesh Kumar</h5>
+       <p id="votedPartyName">Independent Party</p>
+      </div>
+     </div>
+     <div class="security-note">
+      <p>🔒 Your vote is securely stored and cannot be altered</p>
+     </div><button class="btn btn-logout" style="width: 100%; margin-top: 2rem" onclick="logout()"> Logout </button>
+    </div>
+   </div><!-- Alert Overlay -->
+   <div class="alert-overlay" id="alertOverlay">
+    <div class="alert-box">
+     <h3>⚠️ Alert</h3>
+     <p id="alertMessage">Please fill in all required fields</p><button onclick="closeAlert()">OK</button>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      project_name: "Online E-Voting System",
+      team_member_1: "Thanushree",
+      team_member_2: "Pavana",
+      team_member_3: "Upanvitha",
+      team_member_4: "Sneha"
+    };
+
+    let selectedCandidate = null;
+    const candidates = [
+      { id: 1, name: "Rajesh Kumar", party: "Independent Party", symbol: "🌸" },
+      { id: 2, name: "Priya Sharma", party: "Progressive Alliance", symbol: "🌙" },
+      { id: 3, name: "Arjun Patel", party: "National Democratic Front", symbol: "🌟" },
+      { id: 4, name: "Meera Reddy", party: "Green Earth Party", symbol: "🌿" }
+    ];
+
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen, .splash-screen').forEach(screen => {
+        screen.classList.remove('active');
+        screen.style.display = 'none';
+      });
+      
+      const targetScreen = document.getElementById(screenId);
+      if (targetScreen) {
+        targetScreen.classList.add('active');
+        targetScreen.style.display = 'block';
+      }
+    }
+
+    function showAlert(message) {
+      document.getElementById('alertMessage').textContent = message;
+      document.getElementById('alertOverlay').classList.add('active');
+    }
+
+    function closeAlert() {
+      document.getElementById('alertOverlay').classList.remove('active');
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const aadhaar = document.getElementById('loginAadhaar').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const otp = document.getElementById('loginOTP').value.trim();
+
+      if (!aadhaar) {
+        showAlert('Please enter Aadhaar Number');
+        return;
+      }
+      if (!password) {
+        showAlert('Please enter Password / PIN');
+        return;
+      }
+      if (!otp) {
+        showAlert('Please enter OTP');
+        return;
+      }
+
+      showScreen('verificationScreen');
+    }
+
+    function handleRegister(event) {
+      event.preventDefault();
+      
+      const fullName = document.getElementById('regFullName').value.trim();
+      const aadhaar = document.getElementById('regAadhaar').value.trim();
+      const voterID = document.getElementById('regVoterID').value.trim();
+      const mobile = document.getElementById('regMobile').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const otp = document.getElementById('regOTP').value.trim();
+
+      if (!fullName) {
+        showAlert('Please enter Full Name');
+        return;
+      }
+      if (!aadhaar) {
+        showAlert('Please enter Aadhaar Number');
+        return;
+      }
+      if (!voterID) {
+        showAlert('Please enter Voter ID');
+        return;
+      }
+      if (!mobile) {
+        showAlert('Please enter Mobile Number');
+        return;
+      }
+      if (!email) {
+        showAlert('Please enter Email ID');
+        return;
+      }
+      if (!otp) {
+        showAlert('Please enter OTP');
+        return;
+      }
+
+      showScreen('verificationScreen');
+    }
+
+    function verifyAndContinue() {
+      showScreen('dashboardScreen');
+    }
+
+    function selectCandidate(candidateId) {
+      selectedCandidate = candidateId;
+      
+      document.querySelectorAll('.candidate-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      document.querySelectorAll('.radio-button').forEach(radio => {
+        radio.classList.remove('selected');
+      });
+
+      event.currentTarget.classList.add('selected');
+      document.getElementById(`radio${candidateId}`).classList.add('selected');
+
+      document.getElementById('confirmBtn').disabled = false;
+      document.getElementById('changeBtn').disabled = false;
+    }
+
+    function changeSelection() {
+      selectedCandidate = null;
+      document.querySelectorAll('.candidate-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      document.querySelectorAll('.radio-button').forEach(radio => {
+        radio.classList.remove('selected');
+      });
+      document.getElementById('confirmBtn').disabled = true;
+      document.getElementById('changeBtn').disabled = true;
+    }
+
+    function confirmVote() {
+      if (!selectedCandidate) {
+        showAlert('Please select a candidate first');
+        return;
+      }
+
+      const candidate = candidates.find(c => c.id === selectedCandidate);
+      const now = new Date();
+      
+      document.getElementById('voteID').textContent = `VID-2025-${String(Math.floor(Math.random() * 999999)).padStart(6, '0')}`;
+      document.getElementById('voterID').textContent = 'ABC1234567';
+      document.getElementById('voteDate').textContent = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('voteTime').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      
+      document.getElementById('votedSymbol').textContent = candidate.symbol;
+      document.getElementById('votedCandidateName').textContent = candidate.name;
+      document.getElementById('votedPartyName').textContent = candidate.party;
+
+      showScreen('successScreen');
+    }
+
+    function logout() {
+      selectedCandidate = null;
+      document.querySelectorAll('form').forEach(form => form.reset());
+      document.querySelectorAll('.candidate-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      document.querySelectorAll('.radio-button').forEach(radio => {
+        radio.classList.remove('selected');
+      });
+      showScreen('welcomeScreen');
+    }
+
+    async function onConfigChange(config) {
+      document.getElementById('projectName').textContent = config.project_name || defaultConfig.project_name;
+      document.getElementById('teamMember1').textContent = config.team_member_1 || defaultConfig.team_member_1;
+      document.getElementById('teamMember2').textContent = config.team_member_2 || defaultConfig.team_member_2;
+      document.getElementById('teamMember3').textContent = config.team_member_3 || defaultConfig.team_member_3;
+      document.getElementById('teamMember4').textContent = config.team_member_4 || defaultConfig.team_member_4;
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig: defaultConfig,
+        onConfigChange: onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["project_name", config.project_name || defaultConfig.project_name],
+          ["team_member_1", config.team_member_1 || defaultConfig.team_member_1],
+          ["team_member_2", config.team_member_2 || defaultConfig.team_member_2],
+          ["team_member_3", config.team_member_3 || defaultConfig.team_member_3],
+          ["team_member_4", config.team_member_4 || defaultConfig.team_member_4]
+        ])
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b39edac970d3b7f',t:'MTc2NjY4MjM4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
